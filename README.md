@@ -109,4 +109,3 @@ Nine exercises for learning Java Stream
     ON t1.e = t2.e
     INNER JOIN t3
     ON t2.e = t3.e;
-
