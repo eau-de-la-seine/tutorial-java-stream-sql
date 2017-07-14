@@ -79,7 +79,7 @@ Nine exercises for learning Java Stream
     GROUP BY gender;
 
 
-## Exercise 7: DISTINCT & GROUP BY
+## Exercise 7: DISTINCT and GROUP BY
 
     SELECT DISTINCT salary FROM employees;
     -- Equivalent:
