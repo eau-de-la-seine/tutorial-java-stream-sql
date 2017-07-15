@@ -52,7 +52,9 @@ public class Main {
 		// Print
 		System.out.println("Salary | Name");
 		result.forEach(employee ->
-			System.out.println(String.format("%s   | %s", employee.getSalary(), employee.getName()))
+			System.out.println(
+				String.format("%s   | %s", employee.getSalary(), employee.getName())
+			)
 		);
 	}
 
@@ -62,19 +64,22 @@ public class Main {
 	public static void ex1_b () {
 		List<Employee> temp = new ArrayList<>();
 		for (Employee employee : employees()) {
-			if ("M".equals(employee.getGender())) {								// WHERE gender = 'M'
+			if ("M".equals(employee.getGender())) { // WHERE gender = 'M'
 				temp.add(employee);
 			}
 		}
 
-		Collections.sort(temp, (e1, e2) -> e2.getSalary() - e1.getSalary());	// ORDER BY salary DESC
+		Collections.sort(temp, (e1, e2) -> e2.getSalary() - e1.getSalary()); // ORDER BY salary DESC
 		int limit = (temp.size() > 0 && temp.size() <= 3) ? temp.size() : 3;
-		List<Employee> result = (temp.isEmpty()) ? Collections.emptyList() : temp.subList(0, limit);	// LIMIT X
+		List<Employee> result = (
+			temp.isEmpty()) ? Collections.emptyList() : temp.subList(0, limit); // LIMIT X
 
 		// Print
 		System.out.println("Salary | Name");
 		result.forEach(employee ->
-			System.out.println(String.format("%s   | %s", employee.getSalary(), employee.getName()))
+			System.out.println(
+				String.format("%s   | %s", employee.getSalary(), employee.getName())
+			)
 		);
 	}
 
@@ -252,7 +257,7 @@ public class Main {
 	}
 
 	/**
-	 * Ex7: DISTINCT & GROUP BY
+	 * Ex7: DISTINCT and GROUP BY
 	 *
 	 *		SELECT DISTINCT salary FROM employees;
 	 *		-- Equivalent:
