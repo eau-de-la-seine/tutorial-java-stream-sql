@@ -142,7 +142,7 @@ public class Main {
 			.count();												// COUNT(*)
 
 		double salarySumWithTaxes = employees().stream()
-			.mapToDouble(employee -> employee.getSalary())
+			.mapToDouble(Employee::getSalary)
 			.sum() * 1.217;							// SUM(salary) * 1.217
 
 		// Print
@@ -164,9 +164,9 @@ public class Main {
 
 		Optional<Integer> highestSalary =  employees().stream()
 			.map(Employee::getSalary)
-			.reduce((a, b) -> (a > b) ? a : b);		// MIN(age)
+			.reduce((a, b) -> (a > b) ? a : b);		// MAX(age)
 
-		// Special: SUM() / COUNT(*)
+		// AVG => SUM() / COUNT(*)
 		AtomicInteger count = new AtomicInteger(0);
 		double averageAge = employees().stream()
 			.mapToDouble(Employee::getAge)
@@ -181,7 +181,7 @@ public class Main {
 			.reduce(0L, (a, b) -> a + b);			// COUNT(*)
 
 		double salarySumWithTaxes = employees().stream()
-			.map(employee -> employee.getSalary())
+			.map(Employee::getSalary)
 			.reduce(0, (a, b) -> (a + b)) * 1.217;	// SUM(salary) * 1.217
 
 		// Print
@@ -257,24 +257,35 @@ public class Main {
 	}
 
 	/**
-	 * Ex7: DISTINCT and GROUP BY
+	 * Ex7 (A): DISTINCT and GROUP BY
 	 *
-	 *		SELECT DISTINCT salary FROM employees;
-	 *		-- Equivalent:
 	 *		SELECT salary FROM employees GROUP BY salary;
+	 *		-- Equivalent:
+	 *		SELECT DISTINCT salary FROM employees;
 	 */
-	public static void ex7 () {
+	public static void ex7_a () {
+		Map<Integer, List<Employee>> genders2 = employees().stream()
+			.collect(Collectors.groupingBy(Employee::getSalary));		// GROUP BY
+
+		// Print
+		System.out.println(String.format("Genders: %s", genders2.entrySet().stream().map(Map.Entry::getKey).map(Object::toString).collect(Collectors.joining(", "))));
+	}
+
+	/**
+	 * Ex7 (B): DISTINCT and GROUP BY
+	 *
+	 *		SELECT salary FROM employees GROUP BY salary;
+	 *		-- Equivalent:
+	 *		SELECT DISTINCT salary FROM employees;
+	 */
+	public static void ex7_b () {
 		List<Integer> genders1 = employees().stream()
 			.map(Employee::getSalary)
 			.distinct()													// DISTINCT
 			.collect(Collectors.toList());
 
-		Map<Integer, List<Employee>> genders2 = employees().stream()
-			.collect(Collectors.groupingBy(Employee::getSalary));		// GROUP BY
-
 		// Print
 		System.out.println(String.format("Genders: %s", genders1.stream().map(Object::toString).collect(Collectors.joining(", "))));
-		System.out.println(String.format("Genders: %s", genders2.entrySet().stream().map(e -> e.getKey()).map(Object::toString).collect(Collectors.joining(", "))));
 	}
 
 	/**
