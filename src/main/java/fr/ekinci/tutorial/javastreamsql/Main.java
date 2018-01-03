@@ -14,21 +14,21 @@ import java.util.stream.Stream;
  */
 public class Main {
 	public static void main(String[] args) throws Exception {
-		/*
-		ex1_a();
-		ex1_b();
-		ex2();
-		ex3_a();
-		ex3_b();
-		ex4();
-		ex5();
-		ex6();
-		ex7();
-		ex8_a();
-		ex8_b();
-		ex9_a();
-		ex9_b();
-		*/
+		// You can uncomment each of those exercise below :
+		// ex1_a();
+		// ex1_b();
+		// ex2();
+		// ex3_a();
+		// ex3_b();
+		// ex4();
+		// ex5();
+		// ex6();
+		// ex7_a();
+		// ex7_b();
+		// ex8_a();
+		// ex8_b();
+		// ex9_a();
+		// ex9_b();
 	}
 
 	/**
@@ -167,13 +167,15 @@ public class Main {
 			.reduce((a, b) -> (a > b) ? a : b);		// MAX(age)
 
 		// AVG => SUM() / COUNT(*)
-		AtomicInteger count = new AtomicInteger(0);
-		double averageAge = employees().stream()
+		AtomicInteger count = new AtomicInteger(1);
+		OptionalDouble sumAge = employees().stream()
 			.mapToDouble(Employee::getAge)
-			.reduce(0d, (a, b) -> {
+			.reduce((a, b) -> {
 				count.incrementAndGet();
 				return a + b;
-			}) / ((count.get() == 0) ? 1 : count.get());			// AVG(age)
+			});
+		OptionalDouble averageAge = sumAge.isPresent() ?
+			OptionalDouble.of(sumAge.getAsDouble() / count.get()) : OptionalDouble.empty();
 
 		long womenCount = employees().stream()
 			.filter(employee -> "F".equals(employee.getGender()))	// WHERE gender = 'F'
